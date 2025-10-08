@@ -23,6 +23,22 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	/* jpa 의존성 추가 */
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	/* h2 db 의존성 추가 */
+	implementation 'com.h2database:h2'
+
+	/*lombok 의존성 추가 */
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	/* validation 의존성 추가 */
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	/* lib_zxing 의존성 추가 */
+	implementation 'com.google.zxing:core:3.5.1'
+	implementation 'com.google.zxing:javase:3.5.1'
 }
 
 tasks.named('test') {
