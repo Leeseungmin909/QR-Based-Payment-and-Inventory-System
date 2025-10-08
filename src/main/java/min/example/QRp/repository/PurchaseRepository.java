@@ -19,7 +19,7 @@ public class PurchaseRepository {
     /**
      * 구매 고유번호 조회
      * @param id 구매 고유 아이디
-     * @return
+     * @return 구매 id 목록
      */
     public Optional<Purchase> findById(int id){
         Purchase purchase = em.find(Purchase.class,id);
@@ -27,17 +27,13 @@ public class PurchaseRepository {
     }
 
     /**
-     * 결제기록 저장
-     * @param purchase
-     * @return
+     * 결제기록 생성
+     * @param purchase 저장할 구매기록
+     * @return db 저장
      */
-    public Purchase save(Purchase purchase) {
-        if (purchase.getPurchaseId() == 0) {
-            em.persist(purchase); // 신규 등록
-            return purchase;
-        } else {
-            return em.merge(purchase); // 수정
-        }
+    public Purchase create(Purchase purchase) {
+        em.persist(purchase); // 신규 등록
+        return purchase;
     }
 
     /**

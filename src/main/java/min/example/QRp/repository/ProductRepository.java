@@ -17,9 +17,9 @@ public class ProductRepository {
     }
 
     /**
-     * 제품 생성
-     * @param product 생성할 제품
-     * @return 생성한 제품 저장
+     * 제품 저장
+     * @param product 저장할 제품
+     * @return db 제품 저장
      */
     public Product create(Product product){
         em.persist(product);
@@ -50,7 +50,7 @@ public class ProductRepository {
 
     /**
      * 모든 제품 조회
-     * @return
+     * @return 모든 제품 목록
      */
     public List<Product> findAll(){
         return em.createQuery("select p from Product p",Product.class)
@@ -60,7 +60,7 @@ public class ProductRepository {
     /**
      * 제품 변경
      * @param productUpdate 변경할 제품
-     * @return
+     * @return 제품 변경
      */
     @Transactional
     public Product update(Product productUpdate){
