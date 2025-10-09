@@ -1,0 +1,25 @@
+spring:
+  # \uD14C\uC2A4\uD2B8 \uC2DC\uC5D0\uB294 H2 DB\uB97C \uC0AC\uC6A9\uD558\uB3C4\uB85D \uBA85\uC2DC
+  datasource:
+    # jdbc:h2:tcp://localhost/~/test \uC2E4\uC81C db
+    url: jdbc:h2:mem:testdb  # 테스트 db
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  # JPA \uBC0F Hibernate \uC124\uC815
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # \uD14C\uC2A4\uD2B8 \uC2DC\uC791 \uC2DC \uC2A4\uD0A4\uB9C8 \uC0DD\uC131, \uC885\uB8CC \uC2DC \uC0AD\uC81C
+    properties:
+      hibernate:
+        # H2 DB \uBC29\uC5B8(Dialect) \uC124\uC815
+        dialect: org.hibernate.dialect.H2Dialect
+        # \uC2E4\uD589\uB418\uB294 SQL \uCFFC\uB9AC\uB97C \uB85C\uADF8\uB85C \uD655\uC778
+        show_sql: true
+        format_sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
