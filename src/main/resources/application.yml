@@ -1,24 +1,25 @@
 spring:
-  # \uD14C\uC2A4\uD2B8 \uC2DC\uC5D0\uB294 H2 DB\uB97C \uC0AC\uC6A9\uD558\uB3C4\uB85D \uBA85\uC2DC
+  # H2 데이터베이스 사용 설정
   datasource:
-    # jdbc:h2:tcp://localhost/~/test \uC2E4\uC81C db
-    url: jdbc:h2:mem:testdb  # 테스트 db
+    # url: jdbc:h2:mem:testdb     # 인메모리 DB (서버 끄면 데이터 사라짐)
+    url: jdbc:h2:file:./qrp-db  # 파일 기반 DB (서버를 다시 켜도 데이터 유지)
     driver-class-name: org.h2.Driver
     username: sa
     password:
 
-  # JPA \uBC0F Hibernate \uC124\uC815
+  # JPA 및 Hibernate 설정
   jpa:
     hibernate:
-      ddl-auto: create-drop # \uD14C\uC2A4\uD2B8 \uC2DC\uC791 \uC2DC \uC2A4\uD0A4\uB9C8 \uC0DD\uC131, \uC885\uB8CC \uC2DC \uC0AD\uC81C
+      ddl-auto: create-drop # 서버 시작 시 스키마 생성, 종료 시 삭제
     properties:
       hibernate:
-        # H2 DB \uBC29\uC5B8(Dialect) \uC124\uC815
+        # H2 데이터베이스 방언(Dialect) 설정
         dialect: org.hibernate.dialect.H2Dialect
-        # \uC2E4\uD589\uB418\uB294 SQL \uCFFC\uB9AC\uB97C \uB85C\uADF8\uB85C \uD655\uC778
+        # 실행되는 SQL 쿼리를 로그로 확인
         show_sql: true
         format_sql: true
 
+  # H2 콘솔 설정
   h2:
     console:
       enabled: true
