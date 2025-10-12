@@ -50,13 +50,25 @@ public class AdminService {
     }
 
     /**
-     * 단일 제품 검색
+     * 단일 제품 검색(ID)
      * @param productId 검색할 제품 ID
      * @return 해당 ID 제품
      */
-    public Product findProductById(int productId){
-        return productRepository.findById(productId)
+    public ProductResponseDto findProductById(int productId){
+        Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new EntityNotFoundException("해당 ID의 상품을 찾을 수 없습니다." + productId));
+        return new ProductResponseDto(product);
+    }
+
+    /**
+     * 단일 제품 검색(NAME)
+     * @param name 검색할 제품 이름
+     * @return 해당 제품 이름
+     */
+    public ProductResponseDto findProductByName(String name){
+        Product product = productRepository.findByName(name)
+                .orElseThrow(()-> new EntityNotFoundException("해당 이름의 상품을 찾을 수 없습니다." + name));
+        return new ProductResponseDto(product);
     }
 
     /**
@@ -79,7 +91,8 @@ public class AdminService {
      */
     @Transactional
     public Product updateProduct(int productid, UpdateProductDto updateProductDto){
-        Product product = findProductById(productid);
+        Product product = productRepository.findById(productid)
+                        .orElseThrow(() -> new EntityNotFoundException("해당 ID의 제품을 찾을 수 없습니다." + productid));
 
         product.update(
                 updateProductDto.getName(),
