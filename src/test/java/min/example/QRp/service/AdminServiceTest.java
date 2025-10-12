@@ -95,7 +95,7 @@ class AdminServiceTest {
         when(productRepository.findById(productId)).thenReturn(Optional.of(testProduct));
 
         // when
-        Product result = adminService.findProductById(productId);
+        ProductResponseDto result = adminService.findProductById(productId);
 
         // then
         assertNotNull(result);
