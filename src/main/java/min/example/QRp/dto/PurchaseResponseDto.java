@@ -14,27 +14,19 @@ import java.util.stream.Collectors;
 @Setter
 public class PurchaseResponseDto {
 
-    // 거래 정보 (구매 id, 구매시간, 구매상태)
     private final int purchaseId;
     private final LocalDateTime purchaseDate;
     private final PurchaseState state;
-
-    // 구매한 상품 목록
     private final List<PurchaseItemDto> purchaseItems;
-
-    // 구매한 모든 제품 결제 금액
     private final int totalAmount;
 
     public PurchaseResponseDto(Purchase purchase) {
         this.purchaseId = purchase.getPurchaseId();
         this.purchaseDate = purchase.getPurchaseDate();
         this.state = purchase.getState();
-
-        // List<PurchaseItem>을 List<PurchaseItemDto>로 변환
         this.purchaseItems = purchase.getPurchaseItems().stream()
-                .map(PurchaseItemDto::new) // 각 PurchaseItem을 PurchaseItemDto로 변환
+                .map(PurchaseItemDto::new)
                 .collect(Collectors.toList());
-
         this.totalAmount = this.purchaseItems.stream()
                 .mapToInt(item -> item.getOrderPrice() * item.getOrderQuantity())
                 .sum();
