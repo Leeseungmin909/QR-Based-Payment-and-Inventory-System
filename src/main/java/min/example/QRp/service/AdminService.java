@@ -12,6 +12,7 @@ import min.example.QRp.domain.PurchaseItem;
 import min.example.QRp.domain.PurchaseState;
 import min.example.QRp.dto.CreateProductDto;
 import min.example.QRp.dto.ProductResponseDto;
+import min.example.QRp.dto.PurchaseResponseDto;
 import min.example.QRp.dto.UpdateProductDto;
 import min.example.QRp.repository.ProductRepository;
 import min.example.QRp.repository.PurchaseRepository;
@@ -45,7 +46,6 @@ public class AdminService {
                 .price(createProductDto.getPrice())
                 .quantity(createProductDto.getQuantity())
                 .build();
-
         return productRepository.create(newProduct);
     }
 
@@ -131,20 +131,38 @@ public class AdminService {
     }
 
     /**
+     * 주문 ID 검색
+     * @param purchaseId 검색할 주문 ID
+     * @return 해당 ID 주문
+     */
+    public PurchaseResponseDto findPurchaseById(int purchaseId) {
+        Purchase purchase = purchaseRepository.findById(purchaseId)
+                .orElseThrow(() -> new EntityNotFoundException("해당 ID의 주문을 찾을 수 없습니다: " + purchaseId));
+        return new PurchaseResponseDto(purchase);
+    }
+
+    /**
+     * 모든 구매 내역 검색
+     * @return 모든 주문 내역
+     */
+    public List<PurchaseResponseDto> findAllPurchases(){
+        List<Purchase> purchaseList = purchaseRepository.findAll();
+
+        return purchaseList.stream()
+                .map(purchase -> new PurchaseResponseDto(purchase))
+                .collect(Collectors.toList());
+    }
+
+    /**
      * QR 코드 생성
      * @param productId 제품 ID
      * @return QR 코드
      * @throws Exception QR 코드 이미지를 스트림에 쓰는 데 실패할 경우
      */
     public byte[] generateQrCodeImage(int productId) throws Exception {
-        // QR 코드에 담을 상품 ID
         String content = String.valueOf(productId);
-
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        // QR 코드 크기 및 내용 설정
         BitMatrix bitMatrix = qrCodeWriter.encode(content, BarcodeFormat.QR_CODE, 200, 200);
-
-        // QR 코드를 PNG 이미지 데이터로 변환
         ByteArrayOutputStream pngOutputStream = new ByteArrayOutputStream();
         MatrixToImageWriter.writeToStream(bitMatrix, "PNG", pngOutputStream);
 
