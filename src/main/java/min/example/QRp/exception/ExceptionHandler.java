@@ -61,6 +61,7 @@ public class ExceptionHandler {
      */
     @org.springframework.web.bind.annotation.ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Map<String, String>> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
+        System.err.println("데이터 무결성 예외 발생: " + ex.getMessage());
         Map<String, String> error = new HashMap<>();
         error.put("error", "데이터 무결성 오류: 이 상품을 참조하는 구매 내역이 있어 삭제할 수 없습니다.");
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
