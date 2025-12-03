@@ -1,0 +1,78 @@
+<head>
+    <meta charset="UTF-8">
+    <title>관리자 - 검색 결과</title>
+    <style>
+        body { font-family: sans-serif; margin: 0; }
+        .container { display: flex; }
+        .sidebar {
+            width: 200px;
+            background-color: #f4f4f4;
+            padding: 20px;
+            height: 100vh;
+            border-right: 1px solid #ddd;
+        }
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar-menu .category-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            padding: 0 5px;
+        }
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+        .sidebar-menu li a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #555;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+        .sidebar-menu li a.active {
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+        .sidebar-menu li a:hover:not(.active) {
+            background-color: #e9e9e9;
+        }
+        .sidebar-menu .category-divider {
+            height: 1px;
+            background-color: #ddd;
+            margin: 20px 0;
+        }
+
+        .content { flex-grow: 1; padding: 30px; }
+        .product-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .product-table th, .product-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        .product-table th { background-color: #f8f8f8; }
+        .button-bar { margin-top: 20px; }
+        .button-bar .btn { padding: 10px 15px; background-color: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; text-decoration: none; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="sidebar">
+        <ul class="sidebar-menu">
+            <li class="category-title">관리자</li>
+            <li><a href="/admin/products" class="active">상품 관리</a></li>
+            <li><a href="/admin/purchases">주문/환불 관리</a></li>
+
+            <li class="category-divider"></li>
+
+            <li class="category-title">소비자</li>
+        </ul>
+    </nav>
+
+    <main class="content">
+    </main>
+</div>
+</body>
+</html>
