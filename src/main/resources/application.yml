@@ -1,8 +1,7 @@
 spring:
   # H2 데이터베이스 사용 설정
   datasource:
-    # url: jdbc:h2:mem:testdb     # 인메모리 DB (서버 끄면 데이터 사라짐)
-    url: jdbc:h2:file:./qrp-db  # 파일 기반 DB (서버를 다시 켜도 데이터 유지)
+    url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
     username: sa
     password:
@@ -10,17 +9,35 @@ spring:
   # JPA 및 Hibernate 설정
   jpa:
     hibernate:
-      ddl-auto: create-drop # 서버 시작 시 스키마 생성, 종료 시 삭제
+      ddl-auto: update
     properties:
       hibernate:
-        # H2 데이터베이스 방언(Dialect) 설정
         dialect: org.hibernate.dialect.H2Dialect
-        # 실행되는 SQL 쿼리를 로그로 확인
         show_sql: true
         format_sql: true
+
+
+    defer-datasource-initialization: true  # "SQL 스크립트 실행을 JPA 뒤로 미루기"
 
   # H2 콘솔 설정
   h2:
     console:
       enabled: true
       path: /h2-console
+
+  # data.sql 값 추가
+  sql:
+    init:
+      mode: always
+
+kakao:
+  admin-key: 'KakaoAK 4a9df83662c5d4d72e4f7b8b0eae84a8' # 카카오 어드민 키
+  api-url: 'https://kapi.kakao.com'
+
+    # 결제 완료/취소/실패 시 카카오가 리다이렉트할 님의 서버 주소
+    # (주의: localhost는 테스트용이며, 실제 배포 시에는 'https://서버도메인'으로 변경해야 함)
+  payment:
+    host: 'http://192.168.168.158:8080' #  님의 IP로 바꿔야 폰에서 테스트 가능 (예: http://192.168.185.74:8080)
+    success-url: '/consumer/payment/success'
+    cancel-url: '/consumer/payment/cancel'
+    fail-url: '/consumer/payment/fail'
