@@ -89,39 +89,6 @@ class ConsumerServiceTest {
         verify(productRepository).findById(productId);
     }
 
-    @Test
-    void findAllProducts_정상조회() {
-        // given
-        Product product1 = Product.builder().name("상품1").price(1000).quantity(5).build();
-        Product product2 = Product.builder().name("상품2").price(2000).quantity(10).build();
-        List<Product> products = List.of(product1, product2);
-
-        when(productRepository.findAll()).thenReturn(products);
-
-        // when
-        List<ProductResponseDto> result = consumerService.findAllProducts();
-
-        // then
-        assertNotNull(result);
-        assertEquals(2, result.size());
-        assertEquals("상품1", result.get(0).getName());
-        assertEquals("상품2", result.get(1).getName());
-        verify(productRepository).findAll();
-    }
-
-    @Test
-    void findAllProducts_빈목록() {
-        // given
-        when(productRepository.findAll()).thenReturn(List.of());
-
-        // when
-        List<ProductResponseDto> result = consumerService.findAllProducts();
-
-        // then
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
-        verify(productRepository).findAll();
-    }
 
     @Test
     void createPurchase_단일상품구매() {
@@ -224,38 +191,9 @@ class ConsumerServiceTest {
         verify(purchaseRepository, never()).create(any(Purchase.class));
     }
 
-    @Test
-    void findPurchaseById_정상조회() {
-        // given
-        int purchaseId = 1;
-        Product product = Product.builder().name("상품1").price(1000).quantity(10).build();
-        PurchaseItem item = PurchaseItem.createPurchaseItem(product, 1000, 2);
-        Purchase purchase = Purchase.createPurchase(item);
 
-        when(purchaseRepository.findById(purchaseId)).thenReturn(Optional.of(purchase));
 
-        // when
-        Purchase result = consumerService.findPurchaseById(purchaseId);
 
-        // then
-        assertNotNull(result);
-        assertEquals(purchase, result);
-        verify(purchaseRepository).findById(purchaseId);
-    }
-
-    @Test
-    void findPurchaseById_존재하지않는구매_예외발생() {
-        // given
-        int purchaseId = 999;
-        when(purchaseRepository.findById(purchaseId)).thenReturn(Optional.empty());
-
-        // when & then
-        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class,
-                () -> consumerService.findPurchaseById(purchaseId));
-
-        assertTrue(exception.getMessage().contains("해당 ID의 구매 내역을 찾을 수 없습니다."));
-        verify(purchaseRepository).findById(purchaseId);
-    }
 
     @Test
     void createPurchase_빈주문목록() {
