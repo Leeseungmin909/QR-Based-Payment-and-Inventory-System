@@ -32,7 +32,7 @@ public class PurchaseRepository {
      * @return db 저장
      */
     public Purchase create(Purchase purchase) {
-        em.persist(purchase); // 신규 등록
+        em.persist(purchase);
         return purchase;
     }
 
@@ -41,7 +41,7 @@ public class PurchaseRepository {
      * @return 모든 결제기록 목록
      */
     public List<Purchase> findAll() {
-        return em.createQuery("SELECT p FROM Purchase p", Purchase.class)
+        return em.createQuery("SELECT p FROM Purchase p ORDER BY p.purchaseDate DESC ", Purchase.class)
                 .getResultList();
     }
 
