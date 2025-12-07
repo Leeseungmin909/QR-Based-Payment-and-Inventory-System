@@ -33,5 +33,9 @@ out/
 /nbdist/
 /.nb-gradle/
 
+### Spring Boot ###
+src/main/resources/application.yml
+src/main/resources/application.properties
+
 ### VS Code ###
 .vscode/
