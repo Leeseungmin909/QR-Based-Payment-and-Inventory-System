@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-// 카카오 "결제 승인" API가 님에게 보내는 최종 응답 DTO
+// 카카오 결제 승인 API 응답 DTO
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class KakaoApproveResponseDto {
